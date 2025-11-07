@@ -1,0 +1,15 @@
+/home/omfarm/Repos/nexus.merge/nexus.merge/bin/Debug/net9.0/nexus.merge
+/home/omfarm/Repos/nexus.merge/nexus.merge/bin/Debug/net9.0/nexus.merge.deps.json
+/home/omfarm/Repos/nexus.merge/nexus.merge/bin/Debug/net9.0/nexus.merge.runtimeconfig.json
+/home/omfarm/Repos/nexus.merge/nexus.merge/bin/Debug/net9.0/nexus.merge.dll
+/home/omfarm/Repos/nexus.merge/nexus.merge/bin/Debug/net9.0/nexus.merge.pdb
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/nexus.merge.GeneratedMSBuildEditorConfig.editorconfig
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/nexus.merge.AssemblyInfoInputs.cache
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/nexus.merge.AssemblyInfo.cs
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/nexus.merge.csproj.CoreCompileInputs.cache
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/nexus.merge.sourcelink.json
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/nexus.merge.dll
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/refint/nexus.merge.dll
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/nexus.merge.pdb
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/nexus.merge.genruntimeconfig.cache
+/home/omfarm/Repos/nexus.merge/nexus.merge/obj/Debug/net9.0/ref/nexus.merge.dll
