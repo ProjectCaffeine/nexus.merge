@@ -1,14 +1,19 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿//using Terminal.Gui;
+//
+//Application.Init();
+//
+//try
+//{
+//  Application.Run<MainWindow>();
+//}
+//catch (Exception ex)
+//{
+//  var test = "test";
+//}
+//finally
+//{
+//  Application.Shutdown();
+//}
 
-var ints = new List<int>
-{
-    1,
-    2,
-    3,
-    4
-};
 
-var first = ints.FirstOrDefault(3);
 
-Console.WriteLine(first);
