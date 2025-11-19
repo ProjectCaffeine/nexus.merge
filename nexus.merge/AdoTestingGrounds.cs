@@ -6,11 +6,11 @@ namespace nexus.merge;
 
 public static class AdoTestingGrounds
 {
-  public static async Task GetBranchesAsync()
+  public static async Task<List<GitBranchStats>> GetBranchesAsync(string pat)
   {
     Console.WriteLine("Connecting.");
 
-    VssConnection connection = new(new Uri("https://dev.azure.com/ProjectCaffeine"), new VssBasicCredential(string.Empty, ""));
+    VssConnection connection = new(new Uri("https://dev.azure.com/ProjectCaffeine"), new VssBasicCredential(string.Empty, pat));
 
     Console.WriteLine("Getting Client");
     var project = "NexusMergeProvingGrounds";
@@ -21,11 +21,6 @@ public static class AdoTestingGrounds
 
     Console.WriteLine($"default branch: {repository.DefaultBranch}");
 
-    var branches = await gitClient.GetBranchesAsync(project, repositoryId);
-
-    foreach (var branch in branches)
-    {
-      Console.WriteLine(branch.Name);
-    }
+    return await gitClient.GetBranchesAsync(project, repositoryId);
   }
 }
