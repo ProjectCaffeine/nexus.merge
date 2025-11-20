@@ -1,6 +1,4 @@
-﻿
-using LibGit2Sharp;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.TeamFoundation.SourceControl.WebApi;
 using Microsoft.VisualStudio.Services.Common;
 using nexus.merge;
@@ -15,11 +13,34 @@ var currentDirectory = Directory.GetCurrentDirectory();
 
 Console.WriteLine($"Current Directory: {currentDirectory}");
 
-Console.WriteLine($"Is current directory a repo: {IsInRepository(currentDirectory)}");
+var repoRoot = GitHelpers.GetRepoRoot(currentDirectory);
+
+if (repoRoot == null)
+{
+  Console.WriteLine("You are not currently in a git repository. Please only use this tool while in a git repository.");
+  return;
+}
+
+var repoUrl = GitHelpers.GetRepoUrl(repoRoot);
+
+if (repoUrl == null)
+{
+  Console.WriteLine("Could not find repo URL.");
+  return;
+}
+
+(string project, string repoId) = GitHelpers.GetRepoProjectAndId(repoUrl);
+
+Console.WriteLine($"Repo root: {repoRoot}");
+Console.WriteLine($"Repo URL: {repoUrl}");
+Console.WriteLine($"Repo Project: {project}");
+Console.WriteLine($"Repo ID: {repoId}");
+
+await InitMergeProcess();
 
 async Task InitMergeProcess()
 {
-  var branches = await AdoTestingGrounds.GetBranchesAsync(config["AdoPap"]!);
+  var branches = await AdoTestingGrounds.GetBranchesAsync(config["AdoPap"]!, project, repoId);
 
   Console.WriteLine("Branches Found:");
   var selectedBranches = SelectBranchesForMerging(branches);
@@ -122,22 +143,4 @@ BranchInputParseResult ParseUserInput(string input, List<GitBranchStats> allBran
   }
 
   return results;
-}
-
-bool IsInRepository(string directory)
-{
-  var inRepo = Repository.IsValid(directory);
-
-  while (!inRepo)
-  {
-    var parent = Directory.GetParent(directory);
-
-    if (parent == null)
-      return false;
-
-    directory = parent.FullName;
-    inRepo = Repository.IsValid(directory);
-  }
-
-  return true;
 }
