@@ -1,4 +1,5 @@
 ﻿
+using LibGit2Sharp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.TeamFoundation.SourceControl.WebApi;
 using Microsoft.VisualStudio.Services.Common;
@@ -10,13 +11,19 @@ IConfiguration config = new ConfigurationBuilder()
   .AddEnvironmentVariables()
   .Build();
 
+var currentDirectory = Directory.GetCurrentDirectory();
 
-Console.WriteLine($"Current Directory: {Directory.GetCurrentDirectory()}");
+Console.WriteLine($"Current Directory: {currentDirectory}");
 
-var branches = await AdoTestingGrounds.GetBranchesAsync(config["AdoPap"]!);
+Console.WriteLine($"Is current directory a repo: {IsInRepository(currentDirectory)}");
 
-Console.WriteLine("Branches Found:");
-var selectedBranches = SelectBranchesForMerging(branches);
+async Task InitMergeProcess()
+{
+  var branches = await AdoTestingGrounds.GetBranchesAsync(config["AdoPap"]!);
+
+  Console.WriteLine("Branches Found:");
+  var selectedBranches = SelectBranchesForMerging(branches);
+}
 
 HashSet<GitBranchStats> SelectBranchesForMerging(List<GitBranchStats> allBranches)
 {
@@ -104,7 +111,7 @@ BranchInputParseResult ParseUserInput(string input, List<GitBranchStats> allBran
 
     if (int.TryParse(cleanedStr, out var result) &&
         result >= 0 &&
-        result < branches.Count)
+        result < allBranches.Count)
     {
 
       results.FoundBranches.Add(allBranches[result]);
@@ -115,4 +122,22 @@ BranchInputParseResult ParseUserInput(string input, List<GitBranchStats> allBran
   }
 
   return results;
+}
+
+bool IsInRepository(string directory)
+{
+  var inRepo = Repository.IsValid(directory);
+
+  while (!inRepo)
+  {
+    var parent = Directory.GetParent(directory);
+
+    if (parent == null)
+      return false;
+
+    directory = parent.FullName;
+    inRepo = Repository.IsValid(directory);
+  }
+
+  return true;
 }
